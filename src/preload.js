@@ -7,4 +7,10 @@ contextBridge.exposeInMainWorld("api", {
   getAccounts: async () => {
     return await ipcRenderer.invoke("get-accounts");
   },
+  navigateToAccounts: () => {
+    ipcRenderer.send("navigate-to-accounts");
+  },
+  navigateToMain: () => {
+    ipcRenderer.send("navigate-to-main");
+  },
 });
