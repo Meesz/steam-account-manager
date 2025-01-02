@@ -109,11 +109,24 @@
     </style>
   </head>
   <body>
+    <button
+      id="view-accounts"
+      onclick="window.api.navigateToAccounts()"
+      style="
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      "
+    >
+      View Accounts
+    </button>
     <h1>Add Steam Account</h1>
-    <div id="accounts-container">
-      <h2>Saved Accounts</h2>
-      <div id="accounts-list"></div>
-    </div>
     <form id="account-form">
       <label>
         Account Name:
