@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
-const fs = require("fs");
+const fs = require("fs").promises;
 
 let mainWindow;
 
@@ -43,5 +43,19 @@ ipcMain.handle("save-account", async (event, account) => {
   } catch (error) {
     console.error("Error saving account:", error);
     return { success: false, error: error.message };
+  }
+});
+
+ipcMain.handle("get-accounts", async () => {
+  try {
+    const accountsPath = path.join(__dirname, "accounts.json");
+    const data = await fs.readFile(accountsPath, "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      // If file doesn't exist, return empty array
+      return [];
+    }
+    throw error;
   }
 });
