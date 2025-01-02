@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steam Account Manager</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #fff;
+      }
+      h1 {
+        color: #fff;
+        font-size: 2.5em;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      }
+      form {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 2rem 3rem;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        width: 320px;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #fff;
+        font-size: 1.1em;
+        font-weight: 500;
+      }
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0 20px 0;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.07);
+        color: #fff;
+        font-size: 1em;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+      }
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+      }
+      button {
+        width: 100%;
+        background: linear-gradient(45deg, #2196F3, #00BCD4);
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.1em;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+      button:hover {
+        background: linear-gradient(45deg, #1976D2, #0097A7);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      }
+      button:active {
+        transform: translateY(0);
+      }
+      ::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Add Steam Account</h1>
+    <form id="account-form">
+      <label>
+        Account Name:
+        <input type="text" id="account-name" required />
+      </label>
+      <label>
+        Password:
+        <input type="password" id="account-password" required />
+      </label>
+      <button type="submit">Add Account</button>
+    </form>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
