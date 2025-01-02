@@ -36,10 +36,46 @@ document
         console.log("Form reset after successful account addition.");
       } else {
         alert("Failed to add account: " + (response.error || "Unknown error"));
-        console.log("Failed to add account:", response.error || "Unknown error");
+        console.log(
+          "Failed to add account:",
+          response.error || "Unknown error"
+        );
       }
     } catch (error) {
       alert("Error saving account: " + error.message);
       console.log("Error saving account:", error.message);
     }
   });
+
+// Add this function to handle account display
+function displayAccounts(accounts) {
+  const accountsList = document.getElementById("accounts-list");
+  accountsList.innerHTML = "";
+
+  accounts.forEach((account) => {
+    const accountItem = document.createElement("div");
+    accountItem.className = "account-item";
+    accountItem.innerHTML = `
+      <h3>${account.accountName}</h3>
+      <button onclick="copyPassword('${account.accountPassword}')">Copy Password</button>
+    `;
+    accountsList.appendChild(accountItem);
+  });
+}
+
+// Add this function to copy passwords
+function copyPassword(password) {
+  navigator.clipboard.writeText(password);
+  alert("Password copied to clipboard!");
+}
+
+// Add this to load accounts when the page loads
+window.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const accounts = await window.api.getAccounts();
+    displayAccounts(accounts);
+  } catch (error) {
+    console.error("Error loading accounts:", error);
+    alert("Failed to load accounts");
+  }
+});
