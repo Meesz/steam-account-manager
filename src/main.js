@@ -4,16 +4,22 @@ const fs = require("fs").promises;
 
 let mainWindow;
 
-app.on("ready", () => {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
 
   mainWindow.loadFile(path.join(__dirname, "renderer/index.html"));
+}
+
+app.on("ready", () => {
+  createWindow();
 });
 
 ipcMain.handle("save-account", async (event, account) => {
@@ -21,24 +27,17 @@ ipcMain.handle("save-account", async (event, account) => {
   let accounts = [];
 
   try {
-    // Read existing accounts
-    if (fs.existsSync(filePath)) {
-      const data = fs.readFileSync(filePath, "utf8");
-      // Only try to parse if the file has content
+    try {
+      const data = await fs.readFile(filePath, "utf8");
       if (data.trim()) {
         accounts = JSON.parse(data);
       }
-    } else {
-      // Create the file with an empty array if it doesn't exist
-      fs.writeFileSync(filePath, JSON.stringify([], null, 2));
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
     }
 
-    // Add the new account
     accounts.push(account);
-
-    // Save back to file
-    fs.writeFileSync(filePath, JSON.stringify(accounts, null, 2));
-
+    await fs.writeFile(filePath, JSON.stringify(accounts, null, 2));
     return { success: true };
   } catch (error) {
     console.error("Error saving account:", error);
@@ -50,12 +49,25 @@ ipcMain.handle("get-accounts", async () => {
   try {
     const accountsPath = path.join(__dirname, "accounts.json");
     const data = await fs.readFile(accountsPath, "utf8");
+    if (!data.trim()) {
+      return [];
+    }
     return JSON.parse(data);
   } catch (error) {
     if (error.code === "ENOENT") {
-      // If file doesn't exist, return empty array
+      // If file doesn't exist, create it with empty array
+      await fs.writeFile(accountsPath, JSON.stringify([], null, 2));
       return [];
     }
     throw error;
   }
+});
+
+// Add these IPC handlers for navigation
+ipcMain.on("navigate-to-accounts", () => {
+  mainWindow.loadFile(path.join(__dirname, "renderer/accounts.html"));
+});
+
+ipcMain.on("navigate-to-main", () => {
+  mainWindow.loadFile(path.join(__dirname, "renderer/index.html"));
 });
