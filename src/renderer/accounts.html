@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Steam Accounts</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #1b2838;
+        color: #ffffff;
+      }
+
+      .account-item {
+        background: #2a475e;
+        border: 1px solid #66c0f4;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .account-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .account-item h3 {
+        margin: 0;
+        color: #66c0f4;
+        font-size: 1.2em;
+      }
+
+      .account-item button {
+        background-color: #66c0f4;
+        color: #1b2838;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.2s ease;
+      }
+
+      .account-item button:hover {
+        background-color: #1999ff;
+      }
+
+      #accounts-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      #accounts-list {
+        margin-top: 30px;
+      }
+
+      h2 {
+        color: #66c0f4;
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 30px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .back-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        padding: 10px 20px;
+        background-color: #2a475e;
+        color: #66c0f4;
+        border: 2px solid #66c0f4;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.2s ease;
+      }
+
+      .back-button:hover {
+        background-color: #66c0f4;
+        color: #1b2838;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        
+        .account-item {
+          flex-direction: column;
+          text-align: center;
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="back-button" onclick="window.api.navigateToMain()">
+      Back
+    </button>
+    <div id="accounts-container">
+      <h2>Saved Accounts</h2>
+      <div id="accounts-list"></div>
+    </div>
+    <script type="module" src="accounts.js"></script>
+  </body>
+</html>
