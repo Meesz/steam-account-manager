@@ -1,3 +1,5 @@
+import { displayAccounts } from "./accounts.js";
+
 document
   .getElementById("account-form")
   .addEventListener("submit", async (e) => {
@@ -46,22 +48,6 @@ document
       console.log("Error saving account:", error.message);
     }
   });
-
-// Add this function to handle account display
-function displayAccounts(accounts) {
-  const accountsList = document.getElementById("accounts-list");
-  accountsList.innerHTML = "";
-
-  accounts.forEach((account) => {
-    const accountItem = document.createElement("div");
-    accountItem.className = "account-item";
-    accountItem.innerHTML = `
-      <h3>${account.accountName}</h3>
-      <button onclick="copyPassword('${account.accountPassword}')">Copy Password</button>
-    `;
-    accountsList.appendChild(accountItem);
-  });
-}
 
 // Add this function to copy passwords
 function copyPassword(password) {
